@@ -19,11 +19,6 @@ $prevCareer.click(() => {
     }
 });
 
-$('.contact__form').submit((e) => {
-    e.preventDefault();                     //prevents automatic redirect to '/submit'
-    sendEmail($('#email').val(), $('#message').val());
-});
-
 // Updates career view
 const updateCareer = function updateCareerInfo() {
     let $careerAbtSelector = $('.career__about');
@@ -60,25 +55,10 @@ const updateCareer = function updateCareerInfo() {
         $prevCareer.removeClass("career__nav--black");
 };
 
-function sendEmail(email, msg) {
-    $.ajax({
-        type: 'POST',
-        url: '/email',
-        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        data: {
-            email: email,
-            msg: msg
-        },
-        success: () => {
-            console.log("Success!");
-            $('#contact__form').trigger('reset');
-        },
-        error: (err) => {
-            console.log(err);
-            alert("Sorry, something went wrong. Please try to contact me another way.")
-        }
-    });
-
+window.onbeforeunload = () => {
+    for(const form of document.getElementsByTagName('form')) {
+        form.reset();
+    }
 }
 
 updateCareer();

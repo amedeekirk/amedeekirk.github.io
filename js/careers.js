@@ -1,9 +1,9 @@
 const careers = [
     {
         "company": "Rexel USA",
-        "date": "March 2021 - Present",
+        "date": "March 2021 - October 2024",
         "img": "assets/rexel_logo.png",
-        "desc": "Working on a variety of internal and external tools ranging from our ecommerce site to branch management tools. Notably contributed significantly to UI overhauls of both our credit application and profile management application."
+        "desc": "Worked on a variety of internal and external tools ranging from our ecommerce site to branch management tools. Notably contributed significantly to UI overhauls of both our credit application and profile management application."
     },
     {
         "company": "Yakima Chief Hops",
