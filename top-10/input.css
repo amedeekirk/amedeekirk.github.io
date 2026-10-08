@@ -1,0 +1,29 @@
+@import "tailwindcss" source(none);
+@source "./index.html";
+@source "./app.js";
+
+@theme {
+  --font-sans: "Nunito", sans-serif;
+  --font-actions: "Lato", sans-serif;
+  --color-blue-50: #edf2fa;
+  --color-blue-100: #dbe6f5;
+  --color-blue-200: #b7cdec;
+  --color-blue-300: #94b3e2;
+  --color-blue-500: #5b88cf;
+  --color-blue-600: #4c7cc8;
+  --color-blue-700: #3c64a4;
+  --color-blue-800: #304f82;
+  --color-gray-50: #f0f0f0;
+  --color-gray-900: #000;
+  --color-brand-orange: #c85a4c;
+}
+
+@layer base {
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  button:not(.row-select) { font-family: var(--font-actions); }
+}
+
+@media (hover: none) {
+  .remove-pick { opacity: 1; }
+}

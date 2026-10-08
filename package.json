@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:top-10": "tailwindcss -i ./top-10/input.css -o ./top-10/style.css --minify",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.1.13",
+    "jsdom": "^27.0.0",
+    "tailwindcss": "4.1.13"
+  }
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Rank your ten favorite anime or characters, then download and share your list.">
+  <meta property="og:title" content="My Top 10 Anime & Characters">
+  <meta property="og:description" content="Make and share a top-10 list of your favorite anime or characters.">
+  <meta property="og:type" content="website">
+  <title>My Top 10 Anime & Characters</title>
+  <link rel="icon" href="../assets/favicon.PNG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body class="min-h-screen bg-gray-50 font-sans text-gray-900">
+  <main class="mx-auto max-w-3xl px-4 py-8 sm:px-8 sm:py-12">
+    <header class="mb-8 flex flex-wrap items-start justify-between gap-4 border-t-4 border-brand-orange pt-5">
+      <div class="min-w-0">
+        <h1 id="page-title" class="break-words text-3xl font-bold tracking-tight text-blue-600 sm:text-4xl">My Top 10 Anime</h1>
+        <p class="mt-2 max-w-2xl text-gray-600">Select a row to add or replace a pick. Drag a filled row to reorder it. Hold briefly first on touch.</p>
+      </div>
+    </header>
+
+    <div id="notice" class="mb-5 hidden rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900" role="status"></div>
+    <div id="error" class="mb-5 hidden rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-800" role="alert"><span id="error-text"></span> <a id="error-reset" class="hidden underline" href="./">Start your own list</a></div>
+
+    <section id="shared-intro" class="mb-6 hidden rounded-lg border border-blue-200 bg-blue-50 p-4">
+      <h2 class="font-semibold">Shared top-10 list</h2>
+      <p class="mt-1 text-sm text-gray-700">This is a view of someone else's picks. Your saved lists are untouched.</p>
+      <button id="edit-copy" class="mt-3 rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Edit a copy</button>
+    </section>
+
+    <section id="editor" aria-label="Top-10 editor">
+      <div class="mb-5 flex flex-wrap items-center justify-between gap-4">
+        <div id="mode-switch" class="inline-flex rounded-md border border-gray-300 bg-white p-1" role="group" aria-label="Choose list type">
+          <button data-mode="anime" class="rounded px-4 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-blue-600" type="button">Anime</button>
+          <button data-mode="characters" class="rounded px-4 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-blue-600" type="button">Characters</button>
+        </div>
+        <span id="count" class="text-sm text-gray-600" aria-live="polite">0 of 10 ranked</span>
+      </div>
+
+      <div id="grid" class="flex flex-col gap-2" aria-label="Ten ranked rows"></div>
+      <p id="sort-status" class="sr-only" role="status" aria-live="polite"></p>
+
+      <p id="shared-links" class="mt-5 hidden text-center text-sm text-gray-600">Select any filled row to view its AniList entry.</p>
+      <div id="personalization" class="mx-auto mt-7 max-w-sm text-center">
+        <label for="owner-name" class="block text-sm font-semibold">Name on your shared list <span class="font-normal text-gray-600">(optional)</span></label>
+        <input id="owner-name" type="text" maxlength="40" autocomplete="off" class="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-center focus-visible:outline-2 focus-visible:outline-blue-600">
+      </div>
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <button id="generate" type="button" disabled class="rounded-md bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700 disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Generate Image</button>
+        <button id="share" type="button" disabled class="rounded-md border border-gray-300 bg-white px-4 py-2 font-semibold hover:bg-gray-100 disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Share</button>
+        <button id="clear" type="button" class="rounded-md border border-gray-300 bg-white px-4 py-2 font-semibold hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Clear list</button>
+        <button id="save-copy" type="button" class="hidden rounded-md border border-blue-300 bg-blue-50 px-4 py-2 font-semibold text-blue-800 hover:bg-blue-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Save as my draft</button>
+      </div>
+      <p id="export-status" class="mt-4 text-center text-sm text-gray-600" role="status" aria-live="polite"></p>
+    </section>
+    <p class="mt-10 text-center text-xs text-gray-500">Search data and artwork: <a class="underline" href="https://anilist.co/">AniList</a>.</p>
+  </main>
+
+  <dialog id="picker" aria-labelledby="picker-title" class="m-auto w-[min(94vw,640px)] max-h-[88vh] rounded-xl border border-gray-300 bg-white p-0 shadow-xl backdrop:bg-black/50">
+    <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4">
+      <h2 id="picker-title" class="text-lg font-semibold">Choose a favorite</h2>
+      <button id="close-picker" type="button" class="rounded px-2 py-1 text-2xl leading-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-600" aria-label="Close picker">×</button>
+    </div>
+    <div class="p-5">
+      <label id="search-label" for="query" class="mb-2 block text-sm font-medium">Search anime</label>
+      <input id="query" type="search" autocomplete="off" maxlength="64" placeholder="Type a name" class="w-full rounded-md border border-gray-300 px-3 py-2 focus-visible:outline-2 focus-visible:outline-blue-600">
+      <p id="search-status" class="mt-3 text-sm text-gray-600" role="status" aria-live="polite">Type at least two characters to search.</p>
+      <div id="results" class="mt-3 max-h-[45vh] overflow-y-auto"></div>
+      <button id="more" type="button" class="mt-4 hidden w-full rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-600">Load more</button>
+      <button id="retry" type="button" class="mt-4 hidden rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-600">Retry</button>
+    </div>
+  </dialog>
+  <dialog id="image-dialog" aria-labelledby="image-dialog-title" class="m-auto max-h-[92vh] w-[min(94vw,680px)] flex-col rounded-xl border border-gray-300 bg-white p-0 shadow-xl open:flex backdrop:bg-black/50">
+    <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4">
+      <h2 id="image-dialog-title" class="text-lg font-semibold text-blue-600">Your Top 10 image</h2>
+      <button id="close-image" type="button" class="rounded px-2 py-1 text-2xl leading-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-600" aria-label="Close image preview">×</button>
+    </div>
+    <div class="min-h-0 flex-1 overflow-y-auto p-5">
+      <img id="image-preview" class="hidden mx-auto w-full rounded border border-gray-300" alt="Preview of your ranked list">
+    </div>
+    <div class="border-t border-gray-200 bg-white p-5">
+      <p id="image-status" class="mb-3 text-sm text-gray-600" role="status" aria-live="polite">Generating image…</p>
+      <div class="flex flex-wrap gap-2">
+        <button id="image-download" type="button" disabled class="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-blue-600">Download PNG</button>
+        <button id="image-copy" type="button" disabled class="rounded-md border border-gray-300 px-4 py-2 font-medium hover:bg-gray-100 disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-blue-600">Copy image</button>
+        <button id="image-share" type="button" disabled class="rounded-md border border-gray-300 px-4 py-2 font-medium hover:bg-gray-100 disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-blue-600">Share</button>
+      </div>
+      <div id="share-options" class="mt-4 hidden border-t border-gray-200 pt-4">
+        <p class="text-sm text-gray-600">Attach the downloaded PNG with this message to share your list.</p>
+        <label for="share-message" class="mt-3 block text-sm font-medium">Share message</label>
+        <textarea id="share-message" readonly rows="3" class="mt-1 w-full resize-none rounded border border-gray-300 p-2 text-sm"></textarea>
+        <button id="copy-share-message" type="button" class="mt-2 rounded-md border border-gray-300 px-4 py-2 font-medium hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-600">Copy message</button>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>
