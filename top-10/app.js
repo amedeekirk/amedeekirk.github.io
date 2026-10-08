@@ -67,7 +67,7 @@ function prepareSharePng(draft = current) {
 function shareDetails(draft = current) {
   const title = listTitle(draft);
   const url = shareUrl(draft, PUBLIC_PAGE);
-  const text = `${title}, made on Amedee's site. Make yours too!`;
+  const text = `${title}, made on amedeekirk.github.io. Make yours too!`;
   return { title, text, url, message: `${text}\n${url}` };
 }
 
