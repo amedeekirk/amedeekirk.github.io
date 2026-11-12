@@ -11,6 +11,12 @@
     &__src {
       padding: 2rem 0 1rem;
       max-width: 100%;
+
+      &--portrait {
+        display: block;
+        width: 18rem;
+        margin: 0 auto;
+      }
     }
 
     @media (min-width: 1025px) {

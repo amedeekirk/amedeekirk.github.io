@@ -137,6 +137,11 @@ textarea {
   padding: 2rem 0 1rem;
   max-width: 100%;
 }
+.career__img__src--portrait {
+  display: block;
+  width: 18rem;
+  margin: 0 auto;
+}
 @media (min-width: 1025px) {
   .career__img {
     grid-area: gp;

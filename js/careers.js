@@ -1,5 +1,12 @@
 const careers = [
     {
+        "company": "Guardify",
+        "date": "May 2025 - Present",
+        "img": "assets/guardify_logo_portrait.svg",
+        "imgClass": "career__img__src--portrait",
+        "desc": "Working on Guardify Cases, a new application that brings case management, interviews, and evidence together for child advocacy centers. I've helped build its outcomes and evidence-sharing workflows and worked on seamlessly migrating user data from the legacy application."
+    },
+    {
         "company": "Rexel USA",
         "date": "March 2021 - October 2024",
         "img": "assets/rexel_logo.png",

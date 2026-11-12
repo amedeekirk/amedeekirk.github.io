@@ -32,7 +32,7 @@ const updateCareer = function updateCareerInfo() {
             <div class="career__about__date">${careers[careerNum].date}</div>
             <div class="career__about__desc">${careers[careerNum].desc}</div>`;
 
-    let careerImgTemplate = `<img src="${careerImg || ''}" alt="company logo" class="career__img__src ${imgDisplay}">`;
+    let careerImgTemplate = `<img src="${careerImg || ''}" alt="${careers[careerNum].company} logo" class="career__img__src ${careers[careerNum].imgClass || ''} ${imgDisplay}">`;
 
     $careerAbtSelector.animate({'opacity': 0}, 400, function(){
         $(this).html(careerAbtTemplate).animate({'opacity': 1}, 400);
